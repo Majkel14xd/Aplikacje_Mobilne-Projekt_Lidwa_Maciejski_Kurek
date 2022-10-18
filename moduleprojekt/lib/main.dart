@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Aplikacja biletowa',
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -22,14 +22,89 @@ class MyApp extends StatelessWidget {
         // or simply save your changes to "hot reload" in a Flutter IDE).
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.teal,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MenuStart(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
+class MenuStart extends StatefulWidget {
+  const MenuStart({Key? key}) : super(key: key);
+
+  @override
+  State<MenuStart> createState() => _MenuStartState();
+}
+
+class _MenuStartState extends State<MenuStart> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Aplikacja Biletowa'),
+      ),
+      body: Container(
+        margin: EdgeInsets.all(30),
+        child:Center(
+          child: GridView.count(
+            crossAxisCount: 2,
+            children: <Widget>[
+            Okienka(
+              title: 'Menu',
+              icon: Icons.menu,
+            ),
+            Okienka(
+              title: 'Skaner',
+              icon: Icons.camera_alt_outlined,
+            ),
+            Okienka(
+              title: 'Ustawienia',
+              icon: Icons.settings,
+            ),
+            Okienka(
+              title: 'Wyjscie',
+              icon: Icons.accessible_forward_rounded,
+            ),
+          ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+class Okienka extends StatelessWidget {
+  Okienka({this.title,required this.icon}) ;
+  final title;
+  final IconData icon;
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.all(15),
+      child:InkWell(
+      onTap: (){},
+      splashColor: Colors.teal,
+      child:Center(
+      child:Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+            Icon(
+                icon,
+                size: 70,
+                color: Colors.teal,
+            ),
+            Text(
+                title,
+                style: new TextStyle(fontSize: 20.0),
+            ),
+        ],
+      ),
+      ),
+      ),
+    );
+  }
+}
+
+/*class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
 
   // This widget is the home page of your application. It is stateful, meaning
@@ -112,4 +187,4 @@ class _MyHomePageState extends State<MyHomePage> {
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
-}
+}*/
