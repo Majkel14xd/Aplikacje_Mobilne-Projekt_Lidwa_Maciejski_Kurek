@@ -1,4 +1,7 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
+import 'package:moduleprojekt/settings.dart';
 
 void main() {
   runApp(const MyApp());
@@ -37,6 +40,12 @@ class MenuStart extends StatefulWidget {
 }
 
 class _MenuStartState extends State<MenuStart> {
+  int currentIndex = 0;
+  final screens = [
+    WidgetMenu(),
+    WidgetScaner(),
+    WidgetSettings(),
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,7 +53,6 @@ class _MenuStartState extends State<MenuStart> {
         title: Text('Aplikacja Biletowa'),
       ),
       body: Container(
-        margin: EdgeInsets.all(30),
         child:Center(
           child: GridView.count(
             crossAxisCount: 2,
@@ -52,30 +60,36 @@ class _MenuStartState extends State<MenuStart> {
             Okienka(
               title: 'Menu',
               icon: Icons.menu,
+              indexx: 1,
             ),
             Okienka(
               title: 'Skaner',
               icon: Icons.camera_alt_outlined,
+              indexx: 2,
             ),
             Okienka(
               title: 'Ustawienia',
               icon: Icons.settings,
+              indexx: 3,
             ),
             Okienka(
               title: 'Wyjscie',
               icon: Icons.accessible_forward_rounded,
+              indexx: 4,
             ),
           ],
           ),
         ),
       ),
+
     );
   }
 }
 class Okienka extends StatelessWidget {
-  Okienka({this.title,required this.icon}) ;
+  Okienka({this.title,required this.icon,this.indexx}) ;
   final title;
   final IconData icon;
+  final indexx;
   @override
   Widget build(BuildContext context) {
     return Container(
