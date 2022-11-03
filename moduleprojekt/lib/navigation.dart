@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:moduleprojekt/NawigationPages/Bilety.dart';
+import 'package:moduleprojekt/NawigationPages/Onas.dart';
+import 'package:moduleprojekt/NawigationPages/Profil.dart';
+import 'package:moduleprojekt/NawigationPages/informacje.dart';
 import 'package:moduleprojekt/main.dart';
-import 'package:moduleprojekt/settings.dart';
+import 'package:moduleprojekt/Settings/ustawienia.dart';
 
 class NawigationPages extends StatelessWidget {
   NawigationPages({this.title,required this.icon,this.index});
@@ -11,7 +15,10 @@ class NawigationPages extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final pages=[
-
+      ProfilPage(),
+      BiletyPage(),
+      InformacjePage(),
+      OnasPage(),
     ];
     return InkWell(
       onTap: (){
@@ -67,14 +74,9 @@ class WidgetNavigation extends StatelessWidget {
             index: 2,
           ),
           NawigationPages(
-            icon: Icons.location_city_sharp,
-            title: "Miasto",
-            index: 3,
-          ),
-          NawigationPages(
             icon: Icons.youtube_searched_for_outlined,
             title: "O nas",
-            index: 4,
+            index: 3,
           ),
         ],
       ),

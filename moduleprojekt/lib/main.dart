@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:moduleprojekt/settings.dart';
+import 'package:moduleprojekt/Pomoc/PomocPage.dart';
+import 'package:moduleprojekt/Settings/ustawienia.dart';
 import 'package:moduleprojekt/navigation.dart';
-import 'package:moduleprojekt/SkanerPages.dart';
+import 'package:moduleprojekt/Skaner/SkanerPages.dart';
 
 void main() {
   runApp(const MyApp());
@@ -69,8 +70,8 @@ class _MenuStartState extends State<MenuStart> {
               indexx: 2,
             ),
             Okienka(
-              title: 'Wyjscie',
-              icon: Icons.accessible_forward_rounded,
+              title: 'Pomoc',
+              icon: Icons.help_outline,
               indexx: 3,
             ),
           ],
@@ -90,8 +91,9 @@ class Okienka extends StatelessWidget {
   Widget build(BuildContext context) {
     final pages=[
       MenuStart(),
-      SkanerPages(),
+      ScannerWidget(),
       SettingPages(),
+      PomocPage(),
     ];
     return Container(
       margin: EdgeInsets.all(15),
