@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:moduleprojekt/settings.dart';
 import 'package:moduleprojekt/navigation.dart';
+import 'package:moduleprojekt/SkanerPages.dart';
 
 void main() {
   runApp(const MyApp());
@@ -40,11 +41,6 @@ class MenuStart extends StatefulWidget {
 
 class _MenuStartState extends State<MenuStart> {
   int currentIndex = 0;
-  final screens = [
-    WidgetMenu(),
-    WidgetScaner(),
-    WidgetSettings(),
-  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,22 +56,22 @@ class _MenuStartState extends State<MenuStart> {
             Okienka(
               title: 'Menu',
               icon: Icons.menu,
-              indexx: 1,
+              indexx: 0,
             ),
             Okienka(
               title: 'Skaner',
               icon: Icons.camera_alt_outlined,
-              indexx: 2,
+              indexx: 1,
             ),
             Okienka(
               title: 'Ustawienia',
               icon: Icons.settings,
-              indexx: 3,
+              indexx: 2,
             ),
             Okienka(
               title: 'Wyjscie',
               icon: Icons.accessible_forward_rounded,
-              indexx: 4,
+              indexx: 3,
             ),
           ],
           ),
@@ -92,10 +88,17 @@ class Okienka extends StatelessWidget {
   final indexx;
   @override
   Widget build(BuildContext context) {
+    final pages=[
+      MenuStart(),
+      SkanerPages(),
+      SettingPages(),
+    ];
     return Container(
       margin: EdgeInsets.all(15),
       child:InkWell(
-      onTap: (){},
+      onTap: (){
+        Navigator.push(context, MaterialPageRoute(builder: (context)=>pages[indexx]));
+      },
       splashColor: Colors.teal,
       child:Center(
       child:Column(

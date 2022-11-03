@@ -3,6 +3,33 @@ import 'package:flutter/rendering.dart';
 import 'package:moduleprojekt/main.dart';
 import 'package:moduleprojekt/settings.dart';
 
+class NawigationPages extends StatelessWidget {
+  NawigationPages({this.title,required this.icon,this.index});
+  final title;
+  final IconData icon;
+  final index;
+  @override
+  Widget build(BuildContext context) {
+    final pages=[
+
+    ];
+    return InkWell(
+      onTap: (){
+        Navigator.push(context, MaterialPageRoute(builder: (context)=>pages[index]));
+      },
+      child: ListTile(
+        leading: Icon(
+            icon,
+        ),
+        title: Text(
+            title,
+        ),
+      ),
+    );
+  }
+}
+
+
 class WidgetNavigation extends StatelessWidget {
   WidgetNavigation(this.nick,this.name);
   final nick;
@@ -24,28 +51,34 @@ class WidgetNavigation extends StatelessWidget {
                 name,
             ),
           ),
-          ListTile(
-            leading: Icon(Icons.person),
-            title: Text("Profil"),
+          NawigationPages(
+            icon: Icons.person,
+            title: "Profil",
+            index: 0,
           ),
-          ListTile(
-            leading: Icon(Icons.airplane_ticket_outlined),
-            title: Text("Bilety"),
+          NawigationPages(
+            icon: Icons.airplane_ticket_outlined,
+            title: "Bilety",
+            index: 1,
           ),
-          ListTile(
-            leading: Icon(Icons.info_outline),
-            title: Text("Inforacje"),
+          NawigationPages(
+            icon: Icons.info_outline,
+            title: "Inforacje",
+            index: 2,
           ),
-          ListTile(
-            leading: Icon(Icons.location_city_sharp),
-            title: Text("Miasto"),
+          NawigationPages(
+            icon: Icons.location_city_sharp,
+            title: "Miasto",
+            index: 3,
           ),
-          ListTile(
-            leading: Icon(Icons.youtube_searched_for_outlined),
-            title: Text("O nas"),
+          NawigationPages(
+            icon: Icons.youtube_searched_for_outlined,
+            title: "O nas",
+            index: 4,
           ),
         ],
       ),
     );
   }
 }
+
