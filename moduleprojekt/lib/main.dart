@@ -24,13 +24,13 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.teal,
       ),
-      home: const MyHomePage(title: 'Ustawienia'),
+      home: const Ustawienia(title: 'Ustawienia'),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+class Ustawienia extends StatefulWidget {
+  const Ustawienia({super.key, required this.title});
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -44,10 +44,10 @@ class MyHomePage extends StatefulWidget {
   final String title;
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<Ustawienia> createState() => _Ustawienia();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _Ustawienia extends State<Ustawienia> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,203 +62,40 @@ class _MyHomePageState extends State<MyHomePage> {
           child: Column(
             children: <Widget>[
               const SizedBox(height: 15),
-              _firstWidget(),
+              Przyciski(
+                  icons: Icons.account_circle,
+                  title: 'DANE UŻYTKOWNIKA',
+                  index: 0,
+              ),
               const SizedBox(height: 15),
-              _secondWidget(),
+              Przyciski(
+                 icons: Icons.security_sharp,
+                 title: 'BEZPIECZEŃSTWO',
+                 index: 1,
+              ),
               const SizedBox(height: 15),
-              _thirdWidget(),
+              Przyciski(
+                icons: Icons.auto_awesome_mosaic_outlined,
+                title: 'ZMIANA MOTYWU',
+                index: 2,
+              ),
               const SizedBox(height: 15),
-              _fourthWidget(),
+              Przyciski(
+                icons: Icons.swap_horizontal_circle,
+                title: 'SORTUJ BILETY',
+                index: 3,
+              ),
               const SizedBox(height: 15),
-              _fifthWidget(),
+              Przyciski(
+                icons: Icons.keyboard_backspace_sharp,
+                title: 'COFNIJ',
+                index: 100,
+              ),
               Image.network('https://cdn.pixabay.com/photo/2019/03/11/21/18/city-4049526_1280.png'),
 
             ],
           )),
     );
-  }
-
-  Widget _firstWidget() {
-    return InkWell(
-        onTap: () {},
-        child: Card(
-          shape: BeveledRectangleBorder(
-            borderRadius: BorderRadius.circular(5.0),
-          ),
-          elevation: 2,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              Expanded(
-                  flex: 1,
-                  child: Container(
-                    height: 55,
-                    width: 30,
-                    decoration: myBoxDecoration(),
-                    child: const Icon(
-                      Icons.account_circle,
-                      color: Colors.white,
-                    ),
-                  )),
-              const Expanded(
-                  flex: 3,
-                  child: Padding(
-                      padding: EdgeInsets.only(left: 15),
-                      child: Text(
-                        'DANE UŻYTKOWNIKA',
-                        style: TextStyle(
-                          fontSize: 25,
-                        ),
-                      ))),
-            ],
-          ),
-        ));
-  }
-
-  Widget _secondWidget() {
-    return InkWell(
-        onTap: () {},
-        child: Card(
-          shape: BeveledRectangleBorder(
-            borderRadius: BorderRadius.circular(5.0),
-          ),
-          elevation: 2,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              Expanded(
-                  flex: 1,
-                  child: Container(
-                    decoration: myBoxDecoration(),
-                    height: 55,
-                    width: 30,
-                    child: const Icon(
-                      Icons.security_sharp,
-                      color: Colors.white,
-                    ),
-                  )),
-              const Expanded(
-                  flex: 3,
-                  child: Padding(
-                      padding: EdgeInsets.only(left: 15),
-                      child: Text(
-                        'BEZPIECZEŃSTWO',
-                        style: TextStyle(
-                          fontSize: 25,
-                        ),
-                      ))),
-            ],
-          ),
-        ));
-  }
-  Widget _thirdWidget() {
-    return InkWell(
-        onTap: () {},
-        child: Card(
-          shape: BeveledRectangleBorder(
-            borderRadius: BorderRadius.circular(5.0),
-          ),
-          elevation: 2,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              Expanded(
-                  flex: 1,
-                  child: Container(
-                    decoration: myBoxDecoration(),
-                    height: 55,
-                    width: 30,
-                    child: const Icon(
-                      Icons.auto_awesome_mosaic_outlined,
-                      color: Colors.white,
-                    ),
-                  )),
-              const Expanded(
-                  flex: 3,
-                  child: Padding(
-                      padding: EdgeInsets.only(left: 15),
-                      child: Text(
-                        'OPCJE MOTYWU',
-                        style: TextStyle(
-                          fontSize: 25,
-                        ),
-                      ))),
-            ],
-          ),
-        ));
-  }
-  Widget _fourthWidget() {
-    return InkWell(
-        onTap: () {},
-        child: Card(
-          shape: BeveledRectangleBorder(
-            borderRadius: BorderRadius.circular(5.0),
-          ),
-          elevation: 2,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              Expanded(
-                  flex: 1,
-                  child: Container(
-                    decoration: myBoxDecoration(),
-                    height: 55,
-                    width: 30,
-                    child: const Icon(
-                      Icons.swap_horizontal_circle,
-                      color: Colors.white,
-                    ),
-                  )),
-              const Expanded(
-                  flex: 3,
-                  child: Padding(
-                      padding: EdgeInsets.only(left: 15),
-                      child: Text(
-                        'SORTUJ BILETY',
-                        style: TextStyle(
-                          fontSize: 25,
-                        ),
-                      ))),
-            ],
-          ),
-        ));
-  }
-  Widget _fifthWidget() {
-    return InkWell(
-        onTap: () {},
-        child: Card(
-          shape: BeveledRectangleBorder(
-            borderRadius: BorderRadius.circular(5.0),
-          ),
-          elevation: 2,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-
-            children: <Widget>[
-              Expanded(
-                  flex: 1,
-                  child: Container(
-                    decoration: myBoxDecoration(),
-                    height: 55,
-                    width: 30,
-                    child: const Icon(
-                      Icons.keyboard_backspace_sharp,
-                      color: Colors.white,
-                    ),
-                  )),
-              const Expanded(
-                  flex: 3,
-                  child: Padding(
-                      padding: EdgeInsets.only(left: 15),
-                      child: Text(
-                        'COFNIJ',
-                        style: TextStyle(
-                          fontSize: 25,
-                        ),
-                      ))),
-            ],
-          ),
-        ));
   }
 
   BoxDecoration myBoxDecoration() {
@@ -270,4 +107,191 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
   }
+//-------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------
 
+
+class Przyciski extends StatelessWidget {
+   Przyciski({this.title,required this.icons , this.index});
+    final title;
+    final IconData icons;
+    final index;
+    final pages=[
+      daneuzytkownika(),
+      bezpieczenstwo(),
+      Motyw(),
+      Sortuj(),
+    ];
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+        onTap: () {
+          if(index==100)
+            {
+              Navigator.pop(context);
+            }else
+              {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => pages[index]));
+              }
+        },
+        child: Card(
+          shape: BeveledRectangleBorder(
+            borderRadius: BorderRadius.circular(5.0),
+          ),
+          elevation: 2,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              Expanded(
+                  flex: 1,
+                  child: Container(
+                    height: 55,
+                    width: 30,
+                    decoration: BoxDecoration(
+                      color: Colors.teal,
+                      borderRadius: BorderRadius.all(
+                          Radius.circular(5.0) //         <--- border radius here
+                      ),
+                    ),
+                    child:Icon(
+                      icons,
+                      color: Colors.white,
+                    ),
+                  )),
+              Expanded(
+                  flex: 3,
+                  child: Padding(
+                      padding: EdgeInsets.only(left: 15),
+                      child: Text(
+                        title,
+                        style: TextStyle(
+                          fontSize: 25,
+                        ),
+                      ))),
+            ],
+          ),
+        ));
+  }
+}
+//-------------------------------------------------------------------------------------------------------------------------------------------------------
+class daneuzytkownika extends StatelessWidget {
+  const daneuzytkownika({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.teal.shade400,
+      appBar: AppBar(
+        title: Text("DANE UŻYTKOWNIKA"),
+      ),
+      body: Padding(
+          padding: const EdgeInsets.only(left:10,top:10,right: 10),
+          child: Column(
+            children: <Widget>[
+              const SizedBox(height: 15),
+              Przyciski(
+                icons: Icons.keyboard_backspace_sharp,
+                title: 'COFNIJ',
+                index: 100,
+              ),
+              Image.network('https://cdn.pixabay.com/photo/2019/03/11/21/18/city-4049526_1280.png'),
+
+            ],
+          ),
+    )
+    );
+  }
+}
+//-------------------------------------------------------------------------------------------------------------------------------------------------------
+
+class bezpieczenstwo extends StatelessWidget {
+  const bezpieczenstwo({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        backgroundColor: Colors.teal.shade400,
+        appBar: AppBar(
+          title: Text("BEZPIECZEŃSTWO"),
+        ),
+        body: Padding(
+          padding: const EdgeInsets.only(left:10,top:10,right: 10),
+          child: Column(
+            children: <Widget>[
+              const SizedBox(height: 15),
+              Przyciski(
+                icons: Icons.keyboard_backspace_sharp,
+                title: 'COFNIJ',
+                index: 100,
+              ),
+              Image.network('https://cdn.pixabay.com/photo/2019/03/11/21/18/city-4049526_1280.png'),
+
+            ],
+          ),
+        )
+    );
+  }
+}
+//-------------------------------------------------------------------------------------------------------------------------------------------------------
+class Motyw extends StatelessWidget {
+  const Motyw({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        backgroundColor: Colors.teal.shade400,
+        appBar: AppBar(
+          title: Text("ZMIANA MOTYWU"),
+        ),
+        body: Padding(
+          padding: const EdgeInsets.only(left:10,top:10,right: 10),
+          child: Column(
+            children: <Widget>[
+              const SizedBox(height: 15),
+              Przyciski(
+                icons: Icons.keyboard_backspace_sharp,
+                title: 'COFNIJ',
+                index: 100,
+              ),
+              Image.network('https://cdn.pixabay.com/photo/2019/03/11/21/18/city-4049526_1280.png'),
+
+            ],
+          ),
+        )
+    );
+  }
+}
+//-------------------------------------------------------------------------------------------------------------------------------------------------------
+
+class Sortuj extends StatelessWidget {
+  const Sortuj({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        backgroundColor: Colors.teal.shade400,
+        appBar: AppBar(
+          title: Text("SORTUJ BILETY"),
+        ),
+        body: Padding(
+          padding: const EdgeInsets.only(left:10,top:10,right: 10),
+          child: Column(
+            children: <Widget>[
+              const SizedBox(height: 15),
+              Przyciski(
+                icons: Icons.keyboard_backspace_sharp,
+                title: 'COFNIJ',
+                index: 100,
+              ),
+              Image.network('https://cdn.pixabay.com/photo/2019/03/11/21/18/city-4049526_1280.png'),
+
+            ],
+          ),
+        )
+    );
+  }
+}
+//-------------------------------------------------------------------------------------------------------------------------------------------------------
