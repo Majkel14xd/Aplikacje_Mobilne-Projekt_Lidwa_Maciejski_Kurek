@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:moduleprojekt/Skaner/AparatSkaner.dart';
+import 'package:moduleprojekt/Skaner/PlikiSkaner.dart';
 import 'package:moduleprojekt/navigation.dart';
 
 class ScannerWidget extends StatefulWidget {
@@ -13,14 +15,8 @@ class _ScannerWidgetState extends State<ScannerWidget> {
   static const TextStyle optionStyle =
   TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
-    Text(
-      'Aparat',
-      style: optionStyle,
-    ),
-    Text(
-      'Plik',
-      style: optionStyle,
-    ),
+    AparatSkaner(),
+    PlikiSkaner()
   ];
 
   void _onItemTapped(int index) {
