@@ -72,7 +72,7 @@ class Przyciski extends StatelessWidget {
   final IconData icons;
   final index;
   final pages=[
-    daneuzytkownika(),
+    MyApp(),
     bezpieczenstwo(),
     Motyw(),
     Sortuj(),
