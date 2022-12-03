@@ -16,12 +16,13 @@ class Sortuj extends StatelessWidget {
           child: Column(
             children: <Widget>[
               const SizedBox(height: 15),
+
               Przyciski(
                 icons: Icons.keyboard_backspace_sharp,
                 title: 'COFNIJ',
                 index: 100,
               ),
-              Image.network('https://cdn.pixabay.com/photo/2019/03/11/21/18/city-4049526_1280.png'),
+              //Image.network('https://cdn.pixabay.com/photo/2019/03/11/21/18/city-4049526_1280.png'),
 
             ],
           ),
