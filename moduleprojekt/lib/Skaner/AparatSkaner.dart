@@ -12,19 +12,19 @@ class AparatSkaner extends StatefulWidget {
 }
 
 class _AparatSkaner extends State<AparatSkaner> {
-  final GlobalKey _gLobalkey = GlobalKey();
+  final GlobalKey _gLobalkey = GlobalKey(debugLabel: 'QR');
   QRViewController? controller;
-  Barcode? result;
+  var result;
   void qr(QRViewController controller) {
     this.controller = controller;
     controller.scannedDataStream.listen((event) {
       setState(() {
         result = event;
       });
-    }
-    );
+      controller.resumeCamera();
+      controller.dispose();
+    });
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,12 +37,19 @@ class _AparatSkaner extends State<AparatSkaner> {
               width: 400,
               child: QRView(
                   key: _gLobalkey,
-                  onQRViewCreated: qr
+                  onQRViewCreated: qr,
+                overlay: QrScannerOverlayShape(
+                borderColor: Colors.green,
+                borderRadius: 10,
+                borderLength: 30,
+                borderWidth: 10,
+                cutOutSize: 250,
+              ),
               ),
             ),
             Center(
               child: (result !=null) ? Text('${result!.code}') : Text('Skanuj bilet z kodu QR'),
-            )
+            ),
           ],
         ),
       ),
