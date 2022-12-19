@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:moduleprojekt/Skaner/AparatSkaner.dart';
 import 'package:moduleprojekt/Skaner/PlikiSkaner.dart';
 import 'package:moduleprojekt/navigation.dart';
-
+import 'package:moduleprojekt/Skaner/zrobzdjecie.dart';
 class ScannerWidget extends StatefulWidget {
   const ScannerWidget({super.key});
 
@@ -16,6 +16,7 @@ class _ScannerWidgetState extends State<ScannerWidget> {
   TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
     AparatSkaner(),
+    Zrobzdjecie(),
     PlikiSkaner()
   ];
 
@@ -38,6 +39,10 @@ class _ScannerWidgetState extends State<ScannerWidget> {
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
+            icon: Icon(Icons.qr_code),
+            label: 'Skaner QR_CODE',
+          ),
+          BottomNavigationBarItem(
             icon: Icon(Icons.camera),
             label: 'Aparat',
           ),
@@ -45,6 +50,7 @@ class _ScannerWidgetState extends State<ScannerWidget> {
             icon: Icon(Icons.file_upload),
             label: 'Wybierz plik',
           ),
+
         ],
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.teal,
