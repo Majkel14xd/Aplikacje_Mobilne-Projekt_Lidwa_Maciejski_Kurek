@@ -1,10 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:moduleprojekt/Autoryzacja/SprawdzenieLogowania.dart';
 import 'package:moduleprojekt/Pomoc/PomocPage.dart';
 import 'package:moduleprojekt/Settings/ustawienia.dart';
+import 'package:moduleprojekt/modele/uzytkownik.dart';
 import 'package:moduleprojekt/navigation.dart';
 import 'package:moduleprojekt/Skaner/SkanerPages.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:provider/provider.dart';
+import 'package:moduleprojekt/Autoryzacja/Autoryzacja.dart';
 
-void main() {
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: FirebaseOptions(
+      apiKey: "AIzaSyCSqrrd2-wx3yqGqrwDM6l2Ozd08kbG72I",
+      appId: "AIzaSyCSqrrd2-wx3yqGqrwDM6l2Ozd08kbG72I",
+      messagingSenderId: "AIzaSyCSqrrd2-wx3yqGqrwDM6l2Ozd08kbG72I",
+      projectId: "AIzaSyCSqrrd2-wx3yqGqrwDM6l2Ozd08kbG72I",
+    ),
+  );
   runApp(const MyApp());
 }
 
@@ -14,7 +28,10 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return StreamProvider<Uzytkownik?>.value(
+      value: Autoryzacja().u,
+      initialData: null,
+      child: MaterialApp(
       title: 'Aplikacja biletowa',
       theme: ThemeData(
         // This is the theme of your application.
@@ -28,7 +45,8 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.teal,
       ),
-      home: MenuStart(),
+      home: Sprawdzenie(),
+      ),
     );
   }
 }
