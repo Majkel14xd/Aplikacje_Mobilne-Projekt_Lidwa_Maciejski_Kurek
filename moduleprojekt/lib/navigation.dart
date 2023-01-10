@@ -4,6 +4,7 @@ import 'package:moduleprojekt/NawigationPages/Bilety.dart';
 import 'package:moduleprojekt/NawigationPages/Onas.dart';
 import 'package:moduleprojekt/NawigationPages/Profil.dart';
 import 'package:moduleprojekt/NawigationPages/informacje.dart';
+import 'package:moduleprojekt/Autoryzacja/Autoryzacja.dart';
 import 'package:moduleprojekt/main.dart';
 import 'package:moduleprojekt/Settings/ustawienia.dart';
 
@@ -41,6 +42,7 @@ class WidgetNavigation extends StatelessWidget {
   WidgetNavigation(this.nick,this.name);
   final nick;
   final name;
+  final Autoryzacja _klucz = Autoryzacja();
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -77,6 +79,19 @@ class WidgetNavigation extends StatelessWidget {
             icon: Icons.youtube_searched_for_outlined,
             title: "O nas",
             index: 3,
+          ),
+          InkWell(
+            onTap: () async {
+              await _klucz.signOut();
+            },
+            child: ListTile(
+              leading: Icon(
+                Icons.logout,
+              ),
+              title: Text(
+                  'Wyloguj'
+              ),
+            ),
           ),
         ],
       ),
