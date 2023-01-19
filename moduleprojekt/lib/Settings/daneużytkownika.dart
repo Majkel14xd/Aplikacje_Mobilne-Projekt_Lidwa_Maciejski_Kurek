@@ -1,8 +1,12 @@
 import 'package:dropdown_button2/custom_dropdown_button2.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:moduleprojekt/modele/uzytkownik.dart';
+import '../Autoryzacja/Autoryzacja.dart';
 import 'ustawienia.dart';
-
+import 'package:firebase_core/firebase_core.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await SystemChrome.setPreferredOrientations([
@@ -195,11 +199,12 @@ class UserPreferences {
   static const myUser = User(
     imagePath:
     'https://images.unsplash.com/photo-1554151228-14d9def656e4?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=333&q=80',
-    name: 'Imie i Nazwisko',
+    name: 'Imie',
     email: 'email',
     about:
     'Wypisz tutaj ulgi , pamiętaj że każdą ulgę należy okazać dokumentem',
   );
+
 }
 //-----------------------------------------------------------------------------------wygląd profilu domyslnie
 class ProfilePage extends StatefulWidget {
@@ -240,7 +245,7 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget buildName(User user) => Column(
     children: [
       Text(
-        user.name,
+       user.name,
         style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
       ),
       const SizedBox(height: 4),
@@ -363,4 +368,5 @@ class User {
     required this.email,
     required this.about,
   });
+
 }

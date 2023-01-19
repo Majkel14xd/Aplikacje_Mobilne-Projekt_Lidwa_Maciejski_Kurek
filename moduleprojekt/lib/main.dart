@@ -8,15 +8,16 @@ import 'package:moduleprojekt/Skaner/SkanerPages.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 import 'package:moduleprojekt/Autoryzacja/Autoryzacja.dart';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: FirebaseOptions(
       apiKey: "AIzaSyCSqrrd2-wx3yqGqrwDM6l2Ozd08kbG72I",
-      appId: "AIzaSyCSqrrd2-wx3yqGqrwDM6l2Ozd08kbG72I",
-      messagingSenderId: "AIzaSyCSqrrd2-wx3yqGqrwDM6l2Ozd08kbG72I",
-      projectId: "AIzaSyCSqrrd2-wx3yqGqrwDM6l2Ozd08kbG72I",
+      appId: "1:612518199119:android:2d4433c9b5e38b9e2dcf3a",
+      messagingSenderId: "612518199119",
+      projectId: "am-projekt-d687c",
     ),
   );
   runApp(const MyApp());

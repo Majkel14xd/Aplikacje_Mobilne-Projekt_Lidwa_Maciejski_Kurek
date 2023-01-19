@@ -16,7 +16,6 @@ class _zarejestrujPageState extends State<zarejestrujPage> {
   String email='';
   String password='';
   String error='';
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,7 +57,8 @@ class _zarejestrujPageState extends State<zarejestrujPage> {
                 onPressed: () async{
                   if(_klucz.currentState!.validate()){
                     dynamic result= await _auth.rejestracjaHasloEmail(email, password);
-                    if(result == null){
+                    dynamic result2= await _auth.rejestracjakontadobazy(email);
+                    if(result == null&&result2 == null){
                       setState(() {
                         error='Proszę podać poprawne dane';
                       });
