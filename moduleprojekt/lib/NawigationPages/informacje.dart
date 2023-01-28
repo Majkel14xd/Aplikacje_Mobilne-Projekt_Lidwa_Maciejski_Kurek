@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:moduleprojekt/navigation.dart';
 
@@ -8,13 +6,13 @@ class InformacjePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double h=MediaQuery.of(context).size.height;
-    double w=MediaQuery.of(context).size.width;
+    double h = MediaQuery.of(context).size.height;
+    double w = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
         title: Text('Informacje o Płatnościach'),
       ),
-      drawer: WidgetNavigation('KowalXD','TomaszKowalski'),
+      drawer: WidgetNavigation(),
       body: Container(
         color: Colors.teal,
         height: h,
@@ -27,19 +25,21 @@ class InformacjePage extends StatelessWidget {
       ),
     );
   }
-  Widget _headSection(){
+
+  Widget _headSection() {
     return Container(
       height: 310,
       color: Colors.teal,
       child: Stack(
         children: [
-            _mainBackground(),
-            _buttonContainer(),
+          _mainBackground(),
+          _buttonContainer(),
         ],
       ),
     );
   }
-  Widget _mainBackground(){
+
+  Widget _mainBackground() {
     return Positioned(
       child: Container(
         decoration: BoxDecoration(
@@ -53,26 +53,28 @@ class InformacjePage extends StatelessWidget {
       ),
     );
   }
-  Widget _buttonContainer(){
+
+  Widget _buttonContainer() {
     return Column(
       children: <Widget>[
         Expanded(child: Container()),
         Padding(
           padding: const EdgeInsets.only(bottom: 16.0, top: 8.0),
           child: FloatingActionButton(
-            onPressed: () =>{},
+            onPressed: () => {},
             child: Icon(Icons.mode_edit_outline_outlined, size: 30.0),
           ),
         ),
       ],
     );
   }
-  Widget _listBills(w){
+
+  Widget _listBills(w) {
     return Positioned(
       top: 320,
       child: Container(
         height: 100,
-        width: w-20,
+        width: w - 20,
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.only(
@@ -82,13 +84,13 @@ class InformacjePage extends StatelessWidget {
           boxShadow: [
             BoxShadow(
               color: Colors.white54,
-              offset: Offset(1,1),
+              offset: Offset(1, 1),
               blurRadius: 10,
             ),
           ],
         ),
         child: Container(
-          margin: const EdgeInsets.only(top: 10,left: 18),
+          margin: const EdgeInsets.only(top: 10, left: 18),
           child: Row(
             children: [
               Column(
@@ -138,7 +140,9 @@ class InformacjePage extends StatelessWidget {
                       ),
                     ],
                   ),
-                  SizedText(text: "Automatyczna płatność dnia 25.11.2022",color: Colors.black),
+                  SizedText(
+                      text: "Automatyczna płatność dnia 25.11.2022",
+                      color: Colors.black),
                   const SizedBox(height: 5)
                 ],
               ),
@@ -154,7 +158,8 @@ class SizedText extends StatelessWidget {
   final String text;
   final Color color;
 
-  const SizedText({Key? key,required this.text,required this.color}) : super(key: key);
+  const SizedText({Key? key, required this.text, required this.color})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {

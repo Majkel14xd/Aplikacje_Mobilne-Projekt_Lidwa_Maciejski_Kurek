@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:moduleprojekt/Autoryzacja/Zarejestruj.dart';
 import 'package:moduleprojekt/Autoryzacja/logowanie.dart';
-import 'package:moduleprojekt/Autoryzacja/Zarejestruj.dart';
 
 class Identyfikacja extends StatefulWidget {
   const Identyfikacja({Key? key}) : super(key: key);
@@ -12,15 +11,15 @@ class Identyfikacja extends StatefulWidget {
 
 class _IdentyfikacjaState extends State<Identyfikacja> {
   bool zalogowany = true;
-  void tViev(){
+  void tViev() {
     setState(() => zalogowany = !zalogowany);
   }
 
   @override
   Widget build(BuildContext context) {
-    if(zalogowany){
+    if (zalogowany) {
       return logowaniePage(tViev: tViev);
-    }else{
+    } else {
       return zarejestrujPage(tViev: tViev);
     }
   }

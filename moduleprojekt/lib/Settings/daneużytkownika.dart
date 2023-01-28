@@ -2,11 +2,10 @@ import 'package:dropdown_button2/custom_dropdown_button2.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:moduleprojekt/modele/uzytkownik.dart';
-import '../Autoryzacja/Autoryzacja.dart';
 import 'ustawienia.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await SystemChrome.setPreferredOrientations([
@@ -19,10 +18,8 @@ Future main() async {
 
 class MyApp extends StatelessWidget {
   static const String title = 'Profil uzytkownika';
-
   @override
   Widget build(BuildContext context) {
-
     return MaterialApp(
       title: 'Strona Uzytkownika',
       theme: ThemeData(
@@ -32,6 +29,7 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
 class MyThemes {
   static const primary = Colors.teal;
   static final primaryColor = Colors.teal.shade300;
@@ -57,14 +55,14 @@ class ButtonWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => ElevatedButton(
-    style: ElevatedButton.styleFrom(
-      shape: StadiumBorder(),
-      foregroundColor: Colors.white,
-      padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
-    ),
-    child: Text(text),
-    onPressed: onClicked,
-  );
+        style: ElevatedButton.styleFrom(
+          shape: StadiumBorder(),
+          foregroundColor: Colors.white,
+          padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
+        ),
+        child: Text(text),
+        onPressed: onClicked,
+      );
 }
 
 class ProfileWidget extends StatelessWidget {
@@ -82,7 +80,6 @@ class ProfileWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final color = Theme.of(context).colorScheme.primary;
-
     return Center(
       child: Stack(
         children: [
@@ -115,18 +112,18 @@ class ProfileWidget extends StatelessWidget {
   }
 
   Widget buildEditIcon(Color color) => buildCircle(
-    color: Colors.white,
-    all: 3,
-    child: buildCircle(
-      color: color,
-      all: 8,
-      child: Icon(
-        isEdit ? Icons.add_a_photo : Icons.edit,
         color: Colors.white,
-        size: 20,
-      ),
-    ),
-  );
+        all: 3,
+        child: buildCircle(
+          color: color,
+          all: 8,
+          child: Icon(
+            isEdit ? Icons.add_a_photo : Icons.edit,
+            color: Colors.white,
+            size: 20,
+          ),
+        ),
+      );
 
   Widget buildCircle({
     required Widget child,
@@ -159,6 +156,7 @@ class TextFieldWidget extends StatefulWidget {
   @override
   _TextFieldWidgetState createState() => _TextFieldWidgetState();
 }
+
 class _TextFieldWidgetState extends State<TextFieldWidget> {
   late final TextEditingController controller;
 
@@ -167,6 +165,7 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
     super.initState();
     controller = TextEditingController(text: widget.text);
   }
+
   @override
   void dispose() {
     controller.dispose();
@@ -175,28 +174,27 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
 
   @override
   Widget build(BuildContext context) => Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      Text(
-        widget.label,
-        style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-      ),
-      const SizedBox(height: 8),
-      TextField(
-        controller: controller,
-        decoration: InputDecoration(
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            widget.label,
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
           ),
-        ),
-        maxLines: widget.maxLines,
-      ),
-    ],
-  );
+          const SizedBox(height: 8),
+          TextField(
+            controller: controller,
+            decoration: InputDecoration(
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+            ),
+            maxLines: widget.maxLines,
+          ),
+        ],
+      );
 }
 
-
-//-----------------------------------------------------------------------------------wygląd profilu domyslnie
+//Domyślny wyglad profilu
 class ProfilePage extends StatefulWidget {
   @override
   _ProfilePageState createState() => _ProfilePageState();
@@ -206,8 +204,6 @@ class _ProfilePageState extends State<ProfilePage> {
   final FirebaseAuth user = FirebaseAuth.instance;
   @override
   Widget build(BuildContext context) {
-
-
     return Scaffold(
       appBar: buildAppBar(context),
       body: ListView(
@@ -221,9 +217,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 MaterialPageRoute(builder: (context) => EditProfilePage()),
               );
             },
-
           ),
-
           const SizedBox(height: 24),
           buildName(),
           const SizedBox(height: 48),
@@ -234,25 +228,25 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   Widget buildName() => Column(
-    children: [
-      Text(
-        user.currentUser!.displayName.toString(),
-        style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
-      ),
-      const SizedBox(height: 4),
-      Text(
-        user.currentUser!.email.toString(),
-        style: const TextStyle(color: Colors.grey),
-      )
-    ],
-  );
+        children: [
+          Text(
+            user.currentUser!.displayName.toString(),
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+          ),
+          const SizedBox(height: 4),
+          Text(
+            user.currentUser!.email.toString(),
+            style: const TextStyle(color: Colors.grey),
+          )
+        ],
+      );
   Future<String> pobierzopis() async {
     String opis = await FirebaseFirestore.instance
         .collection('user')
         .doc(user.currentUser!.uid.toString())
         .get()
         .then((value) {
-      return value.data()!['about']; // Access your after your get the data
+      return value.data()!['about'];
     });
     return opis;
   }
@@ -287,7 +281,7 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
-  //-----------------------------------------------------------------------do uzycia przy wyborze ulg zamiast tekstu
+  //do uzycia przy wyborze ulg zamiast tekstu
   final List<String> items = [
     'Niewidomy 93%',
     'Dziecko niepełnosprawne 78%',
@@ -298,7 +292,6 @@ class _ProfilePageState extends State<ProfilePage> {
     'Poseł/Senator/Straż graniczna',
   ];
   String? selectedValue;
-
 
   Widget buildList(BuildContext context) {
     return Scaffold(
@@ -317,97 +310,81 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 }
-//----------------------------------------------------------------------------wygląd profilu edycji
+
+//wygląd profilu edycji
 class EditProfilePage extends StatefulWidget {
   @override
   _EditProfilePageState createState() => _EditProfilePageState();
 }
 
 class _EditProfilePageState extends State<EditProfilePage> {
-
   final FirebaseAuth _auth = FirebaseAuth.instance;
-   String _name ='';
-   String opis = '';
+  String _name = '';
+  String opis = '';
   @override
-
-  Future dodajopis(String opis) async{
-    try{
-      return await FirebaseFirestore.instance.collection("user").doc(_auth.currentUser!.displayName.toString()).update({
-        "about": opis
-      });
-    }catch(e){
+  Future dodajopis(String opis) async {
+    try {
+      return await FirebaseFirestore.instance
+          .collection("user")
+          .doc(_auth.currentUser!.displayName.toString())
+          .update({"about": opis});
+    } catch (e) {
       print(e.toString());
       return null;
     }
   }
+
   Widget build(BuildContext context) => Scaffold(
-    appBar: buildAppBar(context),
-    body: ListView(
-      padding: const EdgeInsets.symmetric(horizontal: 32),
-      physics: const BouncingScrollPhysics(),
-      children: [
-        const SizedBox(height: 24),
-        ProfileWidget(
-          imagePath: _auth.currentUser!.photoURL.toString(),
-          isEdit: true,
-          onClicked: () async {},
+        appBar: buildAppBar(context),
+        body: ListView(
+          padding: const EdgeInsets.symmetric(horizontal: 32),
+          physics: const BouncingScrollPhysics(),
+          children: [
+            const SizedBox(height: 24),
+            ProfileWidget(
+              imagePath: _auth.currentUser!.photoURL.toString(),
+              isEdit: true,
+              onClicked: () async {},
+            ),
+            const SizedBox(height: 24),
+            TextFieldWidget(
+              label: 'Nazwa uzytkownika',
+              text: _auth.currentUser!.displayName.toString(),
+              onChanged: (name) {
+                setState(() {
+                  _name = name;
+                });
+              },
+            ),
+            const SizedBox(height: 24),
+            TextFieldWidget(
+              label: 'Email',
+              text: "",
+              onChanged: (email) {},
+            ),
+            const SizedBox(height: 24),
+            TextFieldWidget(
+              label: 'Aktualne zniżki',
+              text: '',
+              maxLines: 5,
+              onChanged: (about) {
+                opis = about;
+              },
+            ),
+            const SizedBox(height: 24),
+            ElevatedButton(
+                onPressed: () async {
+                  _auth.currentUser!.updateDisplayName(_name);
+                  dodajopis(opis);
+                },
+                child: Text('Aktualizuj')),
+            const SizedBox(height: 24),
+            Przyciski(
+              icons: Icons.save_as_outlined,
+              title: 'Zapisz zmiany',
+              index: 100,
+            ),
+          ],
         ),
-        const SizedBox(height: 24),
-        TextFieldWidget(
-          label: 'Nazwa uzytkownika',
-          text: _auth.currentUser!.displayName.toString(),
-          onChanged: (name) {
-            setState(() {
-              _name = name;
-            });
-          },
-        ),
-        const SizedBox(height: 24),
-        TextFieldWidget(
-          label: 'Email',
-          text: "",
-          onChanged: (email) {},
-        ),
-        const SizedBox(height: 24),
-        TextFieldWidget(
-          label: 'Aktualne zniżki',
-          text: '',
-          maxLines: 5,
-          onChanged: (about) {
-            opis = about;
-
-          },
-        ),
-      const SizedBox(height: 24),
-  ElevatedButton(
-      onPressed: () async {
-        _auth.currentUser!.updateDisplayName(_name);
-        dodajopis(opis);
-      },
-      child: Text('Aktualizuj')
-  ),
-        const SizedBox(height: 24),
-        Przyciski(
-          icons: Icons.save_as_outlined,
-          title: 'Zapisz zmiany',
-          index: 100,
-        )
-      ],
-    ),
-  );
-}
-//---------------------------------------------------------------zmienne
-class User {
-  final String imagePath;
-  final String name;
-  final String email;
-  final String about;
-
-  const User({
-    required this.imagePath,
-    required this.name,
-    required this.email,
-    required this.about,
-  });
-
+      );
 }

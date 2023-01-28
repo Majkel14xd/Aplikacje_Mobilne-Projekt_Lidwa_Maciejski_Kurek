@@ -6,60 +6,51 @@ import 'package:moduleprojekt/NawigationPages/Onas.dart';
 import 'package:moduleprojekt/NawigationPages/Profil.dart';
 import 'package:moduleprojekt/NawigationPages/informacje.dart';
 import 'package:moduleprojekt/Autoryzacja/Autoryzacja.dart';
-import 'package:moduleprojekt/main.dart';
-import 'package:moduleprojekt/Settings/ustawienia.dart';
 
 class NawigationPages extends StatelessWidget {
-  NawigationPages({this.title,required this.icon,this.index});
+  NawigationPages({this.title, required this.icon, this.index});
   final title;
   final IconData icon;
   final index;
   @override
   Widget build(BuildContext context) {
-    final pages=[
+    final pages = [
       ProfilPage(),
       BiletyPage(),
       InformacjePage(),
       OnasPage(),
     ];
     return InkWell(
-      onTap: (){
-        Navigator.push(context, MaterialPageRoute(builder: (context)=>pages[index]));
+      onTap: () {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => pages[index]));
       },
       child: ListTile(
         leading: Icon(
-            icon,
+          icon,
         ),
         title: Text(
-            title,
+          title,
         ),
       ),
     );
   }
 }
 
-
 class WidgetNavigation extends StatelessWidget {
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  WidgetNavigation(this.nick,this.name);
-  final nick;
-  final name;
+  WidgetNavigation({Key? key});
   final Autoryzacja _klucz = Autoryzacja();
   @override
   Widget build(BuildContext context) {
     return Drawer(
       child: ListView(
-        children: <Widget> [
+        children: <Widget>[
           UserAccountsDrawerHeader(
-            accountName: new Text(
-                _auth.currentUser!.displayName.toString(),
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20.0
-                )
-            ),
+            accountName: new Text(_auth.currentUser!.displayName.toString(),
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0)),
             accountEmail: new Text(
-                _auth.currentUser!.email.toString(),
+              _auth.currentUser!.email.toString(),
             ),
           ),
           NawigationPages(
@@ -90,9 +81,7 @@ class WidgetNavigation extends StatelessWidget {
               leading: Icon(
                 Icons.logout,
               ),
-              title: Text(
-                  'Wyloguj'
-              ),
+              title: Text('Wyloguj'),
             ),
           ),
         ],
@@ -100,4 +89,3 @@ class WidgetNavigation extends StatelessWidget {
     );
   }
 }
-

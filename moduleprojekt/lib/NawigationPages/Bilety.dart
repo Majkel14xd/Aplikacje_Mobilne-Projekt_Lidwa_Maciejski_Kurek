@@ -12,19 +12,19 @@ class _BiletyPageState extends State<BiletyPage> {
   int currentIndex = 0;
   final screens = [
     ContentCard(
-      icon1:Icons.flight_takeoff,
-      icon2:Icons.flight_land,
-      icon3:Icons.flight,
+      icon1: Icons.flight_takeoff,
+      icon2: Icons.flight_land,
+      icon3: Icons.flight,
     ),
     ContentCard(
-      icon1:Icons.train_outlined,
-      icon2:Icons.train_rounded,
-      icon3:Icons.train,
+      icon1: Icons.train_outlined,
+      icon2: Icons.train_rounded,
+      icon3: Icons.train,
     ),
     ContentCard(
-      icon1:Icons.bus_alert_outlined,
-      icon2:Icons.bus_alert_rounded,
-      icon3:Icons.directions_bus,
+      icon1: Icons.bus_alert_outlined,
+      icon2: Icons.bus_alert_rounded,
+      icon3: Icons.directions_bus,
     ),
   ];
   @override
@@ -33,7 +33,7 @@ class _BiletyPageState extends State<BiletyPage> {
       appBar: AppBar(
         title: const Text('Bilety'),
       ),
-      drawer: WidgetNavigation('KowalXD','TomaszKowalski'),
+      drawer: WidgetNavigation(),
       body: IndexedStack(
         index: currentIndex,
         children: screens,
@@ -57,11 +57,13 @@ class _BiletyPageState extends State<BiletyPage> {
           ),
         ],
       ),
-    );;
+    );
+    ;
   }
 }
+
 class ContentCard extends StatefulWidget {
-  ContentCard({required this.icon1,required this.icon2,required this.icon3});
+  ContentCard({required this.icon1, required this.icon2, required this.icon3});
   final IconData icon1;
   final IconData icon2;
   final IconData icon3;
@@ -125,23 +127,23 @@ class _ContentCardState extends State<ContentCard> {
           ),
           child: new IntrinsicHeight(
             child: showInput
-                ? _buildMulticityTab(widget.icon1,widget.icon2)
+                ? _buildMulticityTab(widget.icon1, widget.icon2)
                 : PriceTab(
-              height: viewportConstraints.maxHeight - 48.0,
-              icon: widget.icon3,
-              onPlaneFlightStart: () =>
-                  setState(() => showInputTabOptions = false),
-            ),
+                    height: viewportConstraints.maxHeight - 48.0,
+                    icon: widget.icon3,
+                    onPlaneFlightStart: () =>
+                        setState(() => showInputTabOptions = false),
+                  ),
           ),
         ),
       ),
     );
   }
 
-  Widget _buildMulticityTab(icon1,icon2) {
+  Widget _buildMulticityTab(icon1, icon2) {
     return Column(
       children: <Widget>[
-        MulticityInput(icon1: icon1,icon2: icon2),
+        MulticityInput(icon1: icon1, icon2: icon2),
         Expanded(child: Container()),
         Padding(
           padding: const EdgeInsets.only(bottom: 16.0, top: 8.0),
@@ -154,8 +156,9 @@ class _ContentCardState extends State<ContentCard> {
     );
   }
 }
+
 class MulticityInput extends StatelessWidget {
-  MulticityInput({required this.icon1,required this.icon2});
+  MulticityInput({required this.icon1, required this.icon2});
   final IconData icon1;
   final IconData icon2;
   @override
@@ -242,17 +245,21 @@ class MulticityInput extends StatelessWidget {
     );
   }
 }
+
 class PriceTab extends StatefulWidget {
   final VoidCallback onPlaneFlightStart;
   final double height;
   final IconData icon;
-  const PriceTab({required this.height,required this.icon,required this.onPlaneFlightStart});
+  const PriceTab(
+      {required this.height,
+      required this.icon,
+      required this.onPlaneFlightStart});
 
   @override
   State<PriceTab> createState() => _PriceTabState();
 }
 
-class _PriceTabState extends State<PriceTab> with TickerProviderStateMixin{
+class _PriceTabState extends State<PriceTab> with TickerProviderStateMixin {
   final List<int> _flightStops = [1, 2, 3, 4];
   final double _cardHeight = 80.0;
   late AnimationController _dotsAnimationController;
@@ -264,8 +271,11 @@ class _PriceTabState extends State<PriceTab> with TickerProviderStateMixin{
   late AnimationController _planeTravelController;
   late Animation _planeSizeAnimation;
   late Animation _planeTravelAnimation;
-  double get _planeTopPadding => _minPlanePaddingTop + (1 - _planeTravelAnimation.value) * _maxPlaneTopPadding;
-  double get _maxPlaneTopPadding => widget.height - _initialPlanePaddingBottom - _planeSize;
+  double get _planeTopPadding =>
+      _minPlanePaddingTop +
+      (1 - _planeTravelAnimation.value) * _maxPlaneTopPadding;
+  double get _maxPlaneTopPadding =>
+      widget.height - _initialPlanePaddingBottom - _planeSize;
   double get _planeSize => _planeSizeAnimation.value;
 
   @override
@@ -299,7 +309,7 @@ class _PriceTabState extends State<PriceTab> with TickerProviderStateMixin{
 
   Widget _mapFlightStopToDot(stop) {
     int index = _flightStops.indexOf(stop);
-    bool isStartOrEnd = index == 0 || index == _flightStops.length-1;
+    bool isStartOrEnd = index == 0 || index == _flightStops.length - 1;
     Color color = isStartOrEnd ? Colors.red : Colors.green;
     return AnimatedDot(
       animation: _dotPositions[index],
@@ -309,22 +319,21 @@ class _PriceTabState extends State<PriceTab> with TickerProviderStateMixin{
 
   Widget _buildPlane() {
     return AnimatedBuilder(
-        animation: _planeTravelAnimation,
-        child: Column(
+      animation: _planeTravelAnimation,
+      child: Column(
         children: <Widget>[
-        AnimatedPlaneIcon(animation: _planeSizeAnimation,icon: widget.icon),
-    Container(
-      width: 2.0,
-      height: _flightStops.length*_cardHeight*0.8,
-      color: Color.fromARGB(255, 200, 200, 200),
-    ),
-    ],
-    ),
-    builder: (context,child) => Positioned(
-    top: _planeTopPadding,
-    child: child!,
-
-    ),
+          AnimatedPlaneIcon(animation: _planeSizeAnimation, icon: widget.icon),
+          Container(
+            width: 2.0,
+            height: _flightStops.length * _cardHeight * 0.8,
+            color: Color.fromARGB(255, 200, 200, 200),
+          ),
+        ],
+      ),
+      builder: (context, child) => Positioned(
+        top: _planeTopPadding,
+        child: child!,
+      ),
     );
   }
 
@@ -333,21 +342,24 @@ class _PriceTabState extends State<PriceTab> with TickerProviderStateMixin{
       duration: const Duration(milliseconds: 340),
       vsync: this,
     )..addStatusListener((status) {
-      if (status == AnimationStatus.completed) {
-        Future.delayed(Duration(milliseconds: 500), () {
-          widget?.onPlaneFlightStart();
-          _planeTravelController.forward();
-        });
-        Future.delayed(Duration(milliseconds: 700), () { // <--- dots animation start
-          _dotsAnimationController.forward();
-        });
-      }
-    });
-    _planeSizeAnimation = Tween<double>(begin: 60.0, end: 36.0).animate(CurvedAnimation(
+        if (status == AnimationStatus.completed) {
+          Future.delayed(Duration(milliseconds: 500), () {
+            widget?.onPlaneFlightStart();
+            _planeTravelController.forward();
+          });
+          Future.delayed(Duration(milliseconds: 700), () {
+            // <--- dots animation start
+            _dotsAnimationController.forward();
+          });
+        }
+      });
+    _planeSizeAnimation =
+        Tween<double>(begin: 60.0, end: 36.0).animate(CurvedAnimation(
       parent: _planeSizeAnimationController,
       curve: Curves.easeOut,
     ));
   }
+
   void _initDotAnimations() {
     //what part of whole animation takes one dot travel
     final double slideDurationInterval = 0.4;
@@ -381,6 +393,7 @@ class _PriceTabState extends State<PriceTab> with TickerProviderStateMixin{
     _dotsAnimationController = new AnimationController(
         vsync: this, duration: Duration(milliseconds: 500));
   }
+
   _initPlaneTravelAnimations() {
     _planeTravelController = AnimationController(
       vsync: this,
@@ -392,9 +405,11 @@ class _PriceTabState extends State<PriceTab> with TickerProviderStateMixin{
     );
   }
 }
+
 class AnimatedPlaneIcon extends AnimatedWidget {
   final IconData icon;
-  AnimatedPlaneIcon({super.key,required animation,required this.icon}) : super(listenable: animation);
+  AnimatedPlaneIcon({super.key, required animation, required this.icon})
+      : super(listenable: animation);
   @override
   Widget build(BuildContext context) {
     final Animation<double> animation = listenable as Animation<double>;
@@ -437,9 +452,3 @@ class AnimatedDot extends AnimatedWidget {
     );
   }
 }
-
-
-
-
-
-

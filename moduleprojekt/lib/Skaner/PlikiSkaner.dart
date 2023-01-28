@@ -12,7 +12,6 @@ class PlikiSkaner extends StatefulWidget {
 
 class _PlikiSkaner extends State<PlikiSkaner> {
   String _fileText = "";
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,8 +22,13 @@ class _PlikiSkaner extends State<PlikiSkaner> {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              ElevatedButton(onPressed: _pickFile, child: Text("Załaduj plik z biletem"),),
-              SizedBox(height: 10,),
+              ElevatedButton(
+                onPressed: _pickFile,
+                child: Text("Załaduj plik z biletem"),
+              ),
+              SizedBox(
+                height: 10,
+              ),
             ],
           ),
         ),
@@ -34,9 +38,8 @@ class _PlikiSkaner extends State<PlikiSkaner> {
 
   void _pickFile() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
-      // allowedExtensions: ['jpg', 'pdf', 'doc'],
-    );
-
+        // allowedExtensions: ['jpg', 'pdf', 'doc'],
+        );
     if (result != null && result.files.single.path != null) {
       /// Load result and file details
       PlatformFile file = result.files.first;
@@ -56,14 +59,9 @@ class _PlikiSkaner extends State<PlikiSkaner> {
     }
   }
 
-
-
-
-
-/// currently only supported for Linux, macOS, Windows
-/// If you want to do this for Android, iOS or Web, watch the following tutorial:
-/// https://youtu.be/fJtFDrjEvE8
-
-/// save file on Firebase
+  /// currently only supported for Linux, macOS, Windows
+  /// If you want to do this for Android, iOS or Web, watch the following tutorial:
+  /// https://youtu.be/fJtFDrjEvE8
+  /// save file on Firebase
 
 }

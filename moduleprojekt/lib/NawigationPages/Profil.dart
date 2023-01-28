@@ -10,21 +10,21 @@ class ProfilPage extends StatefulWidget {
 }
 
 class _ProfilPageState extends State<ProfilPage> {
-
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  final String tlo='https://cdn.pixabay.com/photo/2019/03/11/21/18/city-4049526_1280.png';
-  final String picture='https://i.wpimg.pl/400x0/i.wp.pl/a/f/jpeg/34841/twarze_dwa.jpeg';
-  final double coverHeight =280;
-  final double profileHeight= 144;
+  final String tlo =
+      'https://cdn.pixabay.com/photo/2019/03/11/21/18/city-4049526_1280.png';
+  final String picture =
+      'https://i.wpimg.pl/400x0/i.wp.pl/a/f/jpeg/34841/twarze_dwa.jpeg';
+  final double coverHeight = 280;
+  final double profileHeight = 144;
   @override
   Widget build(BuildContext context) {
-
-    final top = coverHeight - profileHeight/2;
+    final top = coverHeight - profileHeight / 2;
     return Scaffold(
       appBar: AppBar(
         title: Text('Profil'),
       ),
-      drawer: WidgetNavigation('KowalXD','TomaszKowalski'),
+      drawer: WidgetNavigation(),
       body: ListView(
         padding: EdgeInsets.zero,
         children: <Widget>[
@@ -34,6 +34,7 @@ class _ProfilPageState extends State<ProfilPage> {
       ),
     );
   }
+
   Widget ProfilTop(top) {
     final bottom = profileHeight / 2;
     return Stack(
@@ -51,8 +52,8 @@ class _ProfilPageState extends State<ProfilPage> {
       ],
     );
   }
-  Widget buildCoverImage(String tlo) =>
-      Container(
+
+  Widget buildCoverImage(String tlo) => Container(
         color: Colors.teal,
         child: Image.network(
           tlo,
@@ -61,16 +62,14 @@ class _ProfilPageState extends State<ProfilPage> {
           fit: BoxFit.cover,
         ),
       );
-  Widget buildProfileImage(String picture) =>
-      CircleAvatar(
-        radius: profileHeight/2,
+  Widget buildProfileImage(String picture) => CircleAvatar(
+        radius: profileHeight / 2,
         backgroundColor: Colors.grey.shade700,
         backgroundImage: NetworkImage(
           picture,
         ),
       );
-  Widget buildContent()=>
-      Column(
+  Widget buildContent() => Column(
         children: [
           const SizedBox(height: 8),
           Text(
@@ -80,7 +79,7 @@ class _ProfilPageState extends State<ProfilPage> {
           const SizedBox(height: 8),
           Text(
             _auth.currentUser!.email.toString(),
-            style: TextStyle(fontSize: 20,color: Colors.black),
+            style: TextStyle(fontSize: 20, color: Colors.black),
           ),
           const SizedBox(height: 16),
           Row(
@@ -101,16 +100,17 @@ class _ProfilPageState extends State<ProfilPage> {
           const SizedBox(height: 32),
         ],
       );
- Future<String> pobierzopis() async {
+  Future<String> pobierzopis() async {
     String opis = await FirebaseFirestore.instance
         .collection('user')
         .doc(_auth.currentUser!.uid.toString())
         .get()
         .then((value) {
-      return value.data()!['about']; // Access your after your get the data
+      return value.data()!['about'];
     });
     return opis;
   }
+
   Widget buildAbout() {
     return FutureBuilder(
       future: pobierzopis(),
@@ -128,7 +128,7 @@ class _ProfilPageState extends State<ProfilPage> {
                 const SizedBox(height: 16),
                 Text(
                   snapshot.requireData,
-                  style: TextStyle(fontSize: 18,height: 1.4),
+                  style: TextStyle(fontSize: 18, height: 1.4),
                 ),
               ],
             ),
@@ -139,9 +139,8 @@ class _ProfilPageState extends State<ProfilPage> {
     );
   }
 
-  Widget buildIcon(IconData icon) =>
-      CircleAvatar(
+  Widget buildIcon(IconData icon) => CircleAvatar(
         radius: 25,
-        child: Center(child: Icon(icon,size: 28)),
+        child: Center(child: Icon(icon, size: 28)),
       );
 }

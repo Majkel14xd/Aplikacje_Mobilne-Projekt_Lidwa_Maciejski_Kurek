@@ -8,9 +8,8 @@ import 'package:moduleprojekt/Skaner/SkanerPages.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 import 'package:moduleprojekt/Autoryzacja/Autoryzacja.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
-void main() async{
+
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: FirebaseOptions(
@@ -33,20 +32,11 @@ class MyApp extends StatelessWidget {
       value: Autoryzacja().u,
       initialData: null,
       child: MaterialApp(
-      title: 'Aplikacja biletowa',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.teal,
-      ),
-      home: Sprawdzenie(),
+        title: 'Aplikacja biletowa',
+        theme: ThemeData(
+          primarySwatch: Colors.teal,
+        ),
+        home: Sprawdzenie(),
       ),
     );
   }
@@ -67,48 +57,48 @@ class _MenuStartState extends State<MenuStart> {
       appBar: AppBar(
         title: Text('Aplikacja Biletowa'),
       ),
-      drawer: WidgetNavigation('KowalXD','TomaszKowalski'),
+      drawer: WidgetNavigation(),
       body: Container(
-        child:Center(
+        child: Center(
           child: GridView.count(
             crossAxisCount: 2,
             children: <Widget>[
-            Okienka(
-              title: 'Menu',
-              icon: Icons.menu,
-              indexx: 0,
-            ),
-            Okienka(
-              title: 'Skaner',
-              icon: Icons.camera_alt_outlined,
-              indexx: 1,
-            ),
-            Okienka(
-              title: 'Ustawienia',
-              icon: Icons.settings,
-              indexx: 2,
-            ),
-            Okienka(
-              title: 'Pomoc',
-              icon: Icons.help_outline,
-              indexx: 3,
-            ),
-          ],
+              Okienka(
+                title: 'Menu',
+                icon: Icons.menu,
+                indexx: 0,
+              ),
+              Okienka(
+                title: 'Skaner',
+                icon: Icons.camera_alt_outlined,
+                indexx: 1,
+              ),
+              Okienka(
+                title: 'Ustawienia',
+                icon: Icons.settings,
+                indexx: 2,
+              ),
+              Okienka(
+                title: 'Pomoc',
+                icon: Icons.help_outline,
+                indexx: 3,
+              ),
+            ],
           ),
         ),
       ),
-
     );
   }
 }
+
 class Okienka extends StatelessWidget {
-  Okienka({this.title,required this.icon,this.indexx}) ;
+  Okienka({this.title, required this.icon, this.indexx});
   final title;
   final IconData icon;
   final indexx;
   @override
   Widget build(BuildContext context) {
-    final pages=[
+    final pages = [
       MenuStart(),
       ScannerWidget(),
       SettingPages(),
@@ -116,27 +106,28 @@ class Okienka extends StatelessWidget {
     ];
     return Container(
       margin: EdgeInsets.all(15),
-      child:InkWell(
-      onTap: (){
-        Navigator.push(context, MaterialPageRoute(builder: (context)=>pages[indexx]));
-      },
-      splashColor: Colors.teal,
-      child:Center(
-      child:Column(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-            Icon(
+      child: InkWell(
+        onTap: () {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => pages[indexx]));
+        },
+        splashColor: Colors.teal,
+        child: Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Icon(
                 icon,
                 size: 70,
                 color: Colors.teal,
-            ),
-            Text(
+              ),
+              Text(
                 title,
                 style: new TextStyle(fontSize: 20.0),
-            ),
-        ],
-      ),
-      ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

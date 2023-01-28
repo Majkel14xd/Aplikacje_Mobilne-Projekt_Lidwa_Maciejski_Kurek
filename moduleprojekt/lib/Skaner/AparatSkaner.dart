@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
-
-
 class AparatSkaner extends StatefulWidget {
   const AparatSkaner({Key? key}) : super(key: key);
-
 
   @override
   State<AparatSkaner> createState() => _AparatSkaner();
@@ -26,6 +23,7 @@ class _AparatSkaner extends State<AparatSkaner> {
     controller.pauseCamera();
     controller.resumeCamera();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,7 +47,9 @@ class _AparatSkaner extends State<AparatSkaner> {
               ),
             ),
             Center(
-              child: (result !=null) ? Text('${result!.code}') : Text('Skanuj bilet z kodu QR'),
+              child: (result != null)
+                  ? Text('${result!.code}')
+                  : Text('Skanuj bilet z kodu QR'),
             ),
           ],
         ),

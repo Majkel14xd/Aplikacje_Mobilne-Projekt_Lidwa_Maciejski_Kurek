@@ -1,4 +1,4 @@
-class Uzytkownik{
+class Uzytkownik {
   final String uid;
   final String? imie;
   final String? nazwisko;
@@ -8,5 +8,3 @@ class Uzytkownik{
     this.nazwisko,
   });
 }
-
-

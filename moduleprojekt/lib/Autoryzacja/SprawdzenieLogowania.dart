@@ -10,10 +10,9 @@ class Sprawdzenie extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<Uzytkownik?>(context);
-    // return einther Home or Authenticate widget
-    if(user==null){
+    if (user == null) {
       return Identyfikacja();
-    }else{
+    } else {
       return MenuStart();
     }
   }

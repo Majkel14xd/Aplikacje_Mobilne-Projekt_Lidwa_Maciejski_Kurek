@@ -10,11 +10,10 @@ class OnasPage extends StatelessWidget {
       appBar: AppBar(
         title: Text('Aplikacja Biletowa'),
       ),
-      drawer: WidgetNavigation('KowalXD','TomaszKowalski'),
+      drawer: WidgetNavigation(),
       body: Text(
         "Onas",
       ),
-
     );
   }
 }
