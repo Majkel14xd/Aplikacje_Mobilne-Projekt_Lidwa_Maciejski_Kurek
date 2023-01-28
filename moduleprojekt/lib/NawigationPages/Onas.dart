@@ -11,9 +11,21 @@ class OnasPage extends StatelessWidget {
         title: Text('Aplikacja Biletowa'),
       ),
       drawer: WidgetNavigation(),
-      body: Text(
-        "Onas",
-      ),
+      body: Center(
+        child: Column(
+          children: <Widget>[
+            Container(
+                child: Image.asset('images/walka.png')),
+            Row(
+                children:[
+                  Expanded(
+                      child:
+                      Text('3 dzielnych studentów walczących z ciągłymi błędami kompilacji tego kodu')
+                  )
+                ]),
+              ],
+            ),
+          ),
     );
   }
 }

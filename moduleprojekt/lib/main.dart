@@ -8,6 +8,7 @@ import 'package:moduleprojekt/Skaner/SkanerPages.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 import 'package:moduleprojekt/Autoryzacja/Autoryzacja.dart';
+import 'package:moduleprojekt/NawigationPages/Bilety.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -58,35 +59,58 @@ class _MenuStartState extends State<MenuStart> {
         title: Text('Aplikacja Biletowa'),
       ),
       drawer: WidgetNavigation(),
-      body: Container(
-        child: Center(
-          child: GridView.count(
-            crossAxisCount: 2,
+      body: Center(
+          child: Column(
             children: <Widget>[
-              Okienka(
-                title: 'Menu',
-                icon: Icons.menu,
-                indexx: 0,
+              SizedBox(
+                height: 100,
               ),
-              Okienka(
-                title: 'Skaner',
-                icon: Icons.camera_alt_outlined,
-                indexx: 1,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Okienka(
+                    title: 'Bilety',
+                    icon: Icons.airplane_ticket_outlined,
+                    indexx: 0,
+                  ),
+                  SizedBox(
+                    width: 90,
+                  ),
+                  Okienka(
+                    title: 'Skaner',
+                    icon: Icons.camera_alt_outlined,
+                    indexx: 1,
+                  ),
+                ],
               ),
-              Okienka(
-                title: 'Ustawienia',
-                icon: Icons.settings,
-                indexx: 2,
+              SizedBox(
+                height: 50,
               ),
-              Okienka(
-                title: 'Pomoc',
-                icon: Icons.help_outline,
-                indexx: 3,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Okienka(
+                    title: 'Ustawienia',
+                    icon: Icons.settings,
+                    indexx: 2,
+                  ),
+                  SizedBox(
+                    width: 85,
+                  ),
+                  Okienka(
+                    title: 'Pomoc',
+                    icon: Icons.help_outline,
+                    indexx: 3,
+                  ),
+                ],
               ),
+              Container(
+                  child: Image.asset('images/menulogo.png')),
             ],
           ),
         ),
-      ),
     );
   }
 }
@@ -99,7 +123,7 @@ class Okienka extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final pages = [
-      MenuStart(),
+      BiletyPage(),
       ScannerWidget(),
       SettingPages(),
       PomocPage(),

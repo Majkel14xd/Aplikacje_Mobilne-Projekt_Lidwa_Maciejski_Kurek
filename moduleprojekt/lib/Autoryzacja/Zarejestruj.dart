@@ -20,39 +20,66 @@ class _zarejestrujPageState extends State<zarejestrujPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
+        color: Colors.grey[900],
+        alignment: Alignment.topCenter,
         child: Form(
           key: _klucz,
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              TextFormField(
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Emaill pusty';
-                  }
-                  return null;
-                },
-                onChanged: (val) {
-                  setState(() {
-                    email = val;
-                  });
-                },
+              Container(
+                  width: 400,
+                  height: 220,
+                  child: Image.asset('images/logoapki.png')),
+              SizedBox(
+                width: 350,
+                child: TextFormField(
+                  style: const TextStyle(color: Colors.teal),
+                  decoration: const InputDecoration(
+                      labelStyle: TextStyle(color: Colors.teal),
+                      enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.teal)),
+                      labelText: 'Adres e-mail'),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Emaill pusty';
+                    }
+                    return null;
+                  },
+                  onChanged: (val) {
+                    setState(() {
+                      email = val;
+                    });
+                  },
+                ),
               ),
-              SizedBox(height: 8.0),
-              TextFormField(
-                obscureText: true,
-                validator: (value) {
-                  if (value == null || value.length < 6) {
-                    return 'Błędne hasło';
-                  }
-                  return null;
-                },
-                onChanged: (val) {
-                  setState(() {
-                    password = val;
-                  });
-                },
+              const SizedBox(height: 10.0),
+              SizedBox(
+                width: 350,
+                child: TextFormField(
+                  style: const TextStyle(color: Colors.teal),
+                  obscureText: true,
+                  decoration: const InputDecoration(
+                    labelStyle: TextStyle(color: Colors.teal),
+                    enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.teal)),
+                    labelText: 'Hasło',
+                  ),
+                  validator: (value) {
+                    if (value == null || value.length < 6) {
+                      return 'Podaj hasło';
+                    }
+                    return null;
+                  },
+                  onChanged: (val) {
+                    setState(() {
+                      password = val;
+                    });
+                  },
+                ),
               ),
-              SizedBox(height: 8.0),
+              const SizedBox(height: 8.0),
               ElevatedButton(
                 onPressed: () async {
                   if (_klucz.currentState!.validate()) {
@@ -66,17 +93,19 @@ class _zarejestrujPageState extends State<zarejestrujPage> {
                     }
                   }
                 },
-                child: Text(
+                child: const Text(
                   'Zarejestruj',
+                  style: TextStyle(fontSize: 20),
                 ),
               ),
-              SizedBox(height: 8.0),
+              const SizedBox(height: 8.0),
               ElevatedButton(
                 onPressed: () async {
                   widget.tViev();
                 },
-                child: Text(
+                child: const Text(
                   'Przejdz do logowania',
+                  style: TextStyle(fontSize: 20),
                 ),
               ),
             ],

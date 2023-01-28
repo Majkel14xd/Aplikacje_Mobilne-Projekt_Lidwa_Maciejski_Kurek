@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:moduleprojekt/NawigationPages/Bilety.dart';
+import 'package:moduleprojekt/main.dart';
 import 'package:moduleprojekt/NawigationPages/Onas.dart';
 import 'package:moduleprojekt/NawigationPages/Profil.dart';
 import 'package:moduleprojekt/NawigationPages/informacje.dart';
@@ -15,6 +16,7 @@ class NawigationPages extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final pages = [
+      MenuStart(),
       ProfilPage(),
       BiletyPage(),
       InformacjePage(),
@@ -54,24 +56,29 @@ class WidgetNavigation extends StatelessWidget {
             ),
           ),
           NawigationPages(
+            icon: Icons.menu,
+            title: "Menu",
+            index: 0,
+          ),
+          NawigationPages(
             icon: Icons.person,
             title: "Profil",
-            index: 0,
+            index: 1,
           ),
           NawigationPages(
             icon: Icons.airplane_ticket_outlined,
             title: "Bilety",
-            index: 1,
+            index: 2,
           ),
           NawigationPages(
             icon: Icons.info_outline,
-            title: "Inforacje",
-            index: 2,
+            title: "Informacje",
+            index: 3,
           ),
           NawigationPages(
             icon: Icons.youtube_searched_for_outlined,
             title: "O nas",
-            index: 3,
+            index: 4,
           ),
           InkWell(
             onTap: () async {
