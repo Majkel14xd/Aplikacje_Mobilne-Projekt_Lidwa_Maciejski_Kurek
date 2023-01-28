@@ -195,17 +195,7 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
   );
 }
 
-class UserPreferences {
-  static const myUser = User(
-    imagePath:
-    'https://images.unsplash.com/photo-1554151228-14d9def656e4?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=333&q=80',
-    name: 'Imie',
-    email: 'email',
-    about:
-    'Wypisz tutaj ulgi , pamiętaj że każdą ulgę należy okazać dokumentem',
-  );
 
-}
 //-----------------------------------------------------------------------------------wygląd profilu domyslnie
 class ProfilePage extends StatefulWidget {
   @override
@@ -213,9 +203,10 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  final FirebaseAuth user = FirebaseAuth.instance;
   @override
   Widget build(BuildContext context) {
-    const user = UserPreferences.myUser;
+
 
     return Scaffold(
       appBar: buildAppBar(context),
@@ -224,7 +215,7 @@ class _ProfilePageState extends State<ProfilePage> {
         children: [
           const SizedBox(height: 24),
           ProfileWidget(
-            imagePath: user.imagePath,
+            imagePath: user.currentUser!.photoURL.toString(),
             onClicked: () {
               Navigator.of(context).push(
                 MaterialPageRoute(builder: (context) => EditProfilePage()),
@@ -234,46 +225,68 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
 
           const SizedBox(height: 24),
-          buildName(user),
+          buildName(),
           const SizedBox(height: 48),
-          buildAbout(user),
+          buildAbout(),
         ],
       ),
     );
   }
 
-  Widget buildName(User user) => Column(
+  Widget buildName() => Column(
     children: [
       Text(
-       user.name,
+        user.currentUser!.displayName.toString(),
         style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
       ),
       const SizedBox(height: 4),
       Text(
-        user.email,
+        user.currentUser!.email.toString(),
         style: const TextStyle(color: Colors.grey),
       )
     ],
   );
+  Future<String> pobierzopis() async {
+    String opis = await FirebaseFirestore.instance
+        .collection('user')
+        .doc(user.currentUser!.uid.toString())
+        .get()
+        .then((value) {
+      return value.data()!['about']; // Access your after your get the data
+    });
+    return opis;
+  }
 
+  Widget buildAbout() {
+    return FutureBuilder(
+      future: pobierzopis(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          return Container(
+            padding: const EdgeInsets.symmetric(horizontal: 48),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  'Aktualne zniżki',
+                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 16),
+                Text(
+                  snapshot.requireData,
+                  style: const TextStyle(fontSize: 16, height: 1.4),
+                ),
+              ],
+            ),
+          );
+        } else if (snapshot.hasError) {
+          return Text("${snapshot.error}");
+        }
+        return CircularProgressIndicator();
+      },
+    );
+  }
 
-  Widget buildAbout(User user) => Container(
-    padding: const EdgeInsets.symmetric(horizontal: 48),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text(
-          'Aktualne zniżki',
-          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-        ),
-        const SizedBox(height: 16),
-        Text(
-          user.about,
-          style: const TextStyle(fontSize: 16, height: 1.4),
-        ),
-      ],
-    ),
-  );
   //-----------------------------------------------------------------------do uzycia przy wyborze ulg zamiast tekstu
   final List<String> items = [
     'Niewidomy 93%',
@@ -311,9 +324,22 @@ class EditProfilePage extends StatefulWidget {
 }
 
 class _EditProfilePageState extends State<EditProfilePage> {
-  User user = UserPreferences.myUser;
 
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+   String _name ='';
+   String opis = '';
   @override
+
+  Future dodajopis(String opis) async{
+    try{
+      return await FirebaseFirestore.instance.collection("user").doc(_auth.currentUser!.displayName.toString()).update({
+        "about": opis
+      });
+    }catch(e){
+      print(e.toString());
+      return null;
+    }
+  }
   Widget build(BuildContext context) => Scaffold(
     appBar: buildAppBar(context),
     body: ListView(
@@ -322,35 +348,50 @@ class _EditProfilePageState extends State<EditProfilePage> {
       children: [
         const SizedBox(height: 24),
         ProfileWidget(
-          imagePath: user.imagePath,
+          imagePath: _auth.currentUser!.photoURL.toString(),
           isEdit: true,
           onClicked: () async {},
         ),
         const SizedBox(height: 24),
         TextFieldWidget(
-          label: 'Imie i Nazwisko',
-          text: user.name,
-          onChanged: (name) {},
+          label: 'Nazwa uzytkownika',
+          text: _auth.currentUser!.displayName.toString(),
+          onChanged: (name) {
+            setState(() {
+              _name = name;
+            });
+          },
         ),
         const SizedBox(height: 24),
         TextFieldWidget(
           label: 'Email',
-          text: user.email,
+          text: "",
           onChanged: (email) {},
         ),
         const SizedBox(height: 24),
         TextFieldWidget(
           label: 'Aktualne zniżki',
-          text: user.about,
+          text: '',
           maxLines: 5,
-          onChanged: (about) {},
+          onChanged: (about) {
+            opis = about;
+
+          },
         ),
+      const SizedBox(height: 24),
+  ElevatedButton(
+      onPressed: () async {
+        _auth.currentUser!.updateDisplayName(_name);
+        dodajopis(opis);
+      },
+      child: Text('Aktualizuj')
+  ),
         const SizedBox(height: 24),
         Przyciski(
           icons: Icons.save_as_outlined,
           title: 'Zapisz zmiany',
           index: 100,
-        ),
+        )
       ],
     ),
   );

@@ -1,4 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
+import 'package:moduleprojekt/Autoryzacja/SprawdzenieLogowania.dart';
 import 'package:moduleprojekt/modele/uzytkownik.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -50,9 +52,10 @@ class Autoryzacja {
     }
   }
   // sign out
-  Future signOut() async{
+  Future signOut(context) async{
     try{
-      return await _auth.signOut();
+      await _auth.signOut();
+      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: ((context)=>Sprawdzenie())));
     }catch(e){
 
     }

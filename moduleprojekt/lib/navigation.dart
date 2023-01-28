@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:moduleprojekt/NawigationPages/Bilety.dart';
@@ -39,6 +40,7 @@ class NawigationPages extends StatelessWidget {
 
 
 class WidgetNavigation extends StatelessWidget {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
   WidgetNavigation(this.nick,this.name);
   final nick;
   final name;
@@ -50,14 +52,14 @@ class WidgetNavigation extends StatelessWidget {
         children: <Widget> [
           UserAccountsDrawerHeader(
             accountName: new Text(
-                nick,
+                _auth.currentUser!.displayName.toString(),
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 20.0
                 )
             ),
             accountEmail: new Text(
-                name,
+                _auth.currentUser!.email.toString(),
             ),
           ),
           NawigationPages(
@@ -82,7 +84,7 @@ class WidgetNavigation extends StatelessWidget {
           ),
           InkWell(
             onTap: () async {
-              await _klucz.signOut();
+              await _klucz.signOut(context);
             },
             child: ListTile(
               leading: Icon(

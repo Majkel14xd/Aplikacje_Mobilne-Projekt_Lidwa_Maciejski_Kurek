@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:moduleprojekt/navigation.dart';
 
@@ -8,12 +10,15 @@ class ProfilPage extends StatefulWidget {
 }
 
 class _ProfilPageState extends State<ProfilPage> {
+
+  final FirebaseAuth _auth = FirebaseAuth.instance;
   final String tlo='https://cdn.pixabay.com/photo/2019/03/11/21/18/city-4049526_1280.png';
   final String picture='https://i.wpimg.pl/400x0/i.wp.pl/a/f/jpeg/34841/twarze_dwa.jpeg';
   final double coverHeight =280;
   final double profileHeight= 144;
   @override
   Widget build(BuildContext context) {
+
     final top = coverHeight - profileHeight/2;
     return Scaffold(
       appBar: AppBar(
@@ -69,12 +74,12 @@ class _ProfilPageState extends State<ProfilPage> {
         children: [
           const SizedBox(height: 8),
           Text(
-            'Adam Nowak',
+            _auth.currentUser!.displayName.toString(),
             style: TextStyle(fontSize: 28),
           ),
           const SizedBox(height: 8),
           Text(
-            'Junior',
+            _auth.currentUser!.email.toString(),
             style: TextStyle(fontSize: 20,color: Colors.black),
           ),
           const SizedBox(height: 16),
@@ -96,25 +101,44 @@ class _ProfilPageState extends State<ProfilPage> {
           const SizedBox(height: 32),
         ],
       );
+ Future<String> pobierzopis() async {
+    String opis = await FirebaseFirestore.instance
+        .collection('user')
+        .doc(_auth.currentUser!.uid.toString())
+        .get()
+        .then((value) {
+      return value.data()!['about']; // Access your after your get the data
+    });
+    return opis;
+  }
+  Widget buildAbout() {
+    return FutureBuilder(
+      future: pobierzopis(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          return Container(
+            padding: EdgeInsets.symmetric(horizontal: 48),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'About',
+                  style: TextStyle(fontSize: 28),
+                ),
+                const SizedBox(height: 16),
+                Text(
+                  snapshot.requireData,
+                  style: TextStyle(fontSize: 18,height: 1.4),
+                ),
+              ],
+            ),
+          );
+        }
+        return CircularProgressIndicator();
+      },
+    );
+  }
 
-  Widget buildAbout() =>
-      Container(
-        padding: EdgeInsets.symmetric(horizontal: 48),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'About',
-              style: TextStyle(fontSize: 28),
-            ),
-            const SizedBox(height: 16),
-            Text(
-              'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
-              style: TextStyle(fontSize: 18,height: 1.4),
-            ),
-          ],
-        ),
-      );
   Widget buildIcon(IconData icon) =>
       CircleAvatar(
         radius: 25,
