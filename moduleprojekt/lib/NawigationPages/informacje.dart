@@ -96,6 +96,7 @@ class _InformacjePageState extends State<InformacjePage> {
       child: Container(
         height: 100,
         width: w - 20,
+        margin: EdgeInsets.all(5),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.only(
