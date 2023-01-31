@@ -1,8 +1,16 @@
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:moduleprojekt/navigation.dart';
 
-class InformacjePage extends StatelessWidget {
-  const InformacjePage({Key? key}) : super(key: key);
+class InformacjePage extends StatefulWidget {
+  @override
+  _InformacjePageState createState() => _InformacjePageState();
+}
+
+class _InformacjePageState extends State<InformacjePage> {
+  List<Widget> containerList = [];
+
+  get w => MediaQuery.of(context).size.width;
 
   @override
   Widget build(BuildContext context) {
@@ -16,38 +24,21 @@ class InformacjePage extends StatelessWidget {
       body: Container(
         color: Colors.teal,
         height: h,
-        child: Stack(
-          children: [
-            _headSection(),
-            _listBills(w),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _headSection() {
-    return Container(
-      height: 310,
-      color: Colors.teal,
-      child: Stack(
-        children: [
-          _mainBackground(),
-          _buttonContainer(),
-        ],
-      ),
-    );
-  }
-
-  Widget _mainBackground() {
-    return Positioned(
-      child: Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            fit: BoxFit.cover,
-            image: AssetImage(
-              "images/b.png",
-            ),
+        child: new SingleChildScrollView(
+          child: new Column(
+            children: [
+              new Container(
+                child: _headSection(),
+              ),
+              SizedBox(
+                height: 5,
+              ),
+              new Container(
+                child: Column(
+                  children: containerList,
+                ),
+              ),
+            ],
           ),
         ),
       ),
@@ -59,9 +50,9 @@ class InformacjePage extends StatelessWidget {
       children: <Widget>[
         Expanded(child: Container()),
         Padding(
-          padding: const EdgeInsets.only(bottom: 16.0, top: 8.0),
+          padding: const EdgeInsets.only(bottom: 16.0, top: 8.0, right: 100),
           child: FloatingActionButton(
-            onPressed: () => {},
+            onPressed: () => setState(() => containerList.add(_listBills(w))),
             child: Icon(Icons.mode_edit_outline_outlined, size: 30.0),
           ),
         ),
@@ -69,12 +60,43 @@ class InformacjePage extends StatelessWidget {
     );
   }
 
+  Widget _buttonDelete() {
+    return Column(
+      children: <Widget>[
+        Expanded(child: Container()),
+        Padding(
+          padding: const EdgeInsets.only(bottom: 16.0, top: 8.0, left: 100),
+          child: FloatingActionButton(
+            onPressed: () => setState(() => containerList.removeLast()),
+            child: Icon(Icons.delete_forever, size: 30.0),
+          ),
+        ),
+      ],
+    );
+  }
+
   Widget _listBills(w) {
+    final billOptions = [
+      'Google Pay',
+      'Apple Pay',
+      'MasterCard',
+      'Visa',
+      'Blik'
+    ];
+    final selectedBillOption =
+    billOptions[Random().nextInt(billOptions.length)];
+    List<String> imagePaths = [
+      "images/logo.png",
+      "images/logo1.png",
+      "images/logo2.png",
+      "images/logo3.png"
+    ];
     return Positioned(
       top: 320,
       child: Container(
         height: 100,
         width: w - 20,
+        margin: EdgeInsets.all(5),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.only(
@@ -102,25 +124,24 @@ class InformacjePage extends StatelessWidget {
                         height: 60,
                         width: 60,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          border: Border.all(
-                            width: 3,
-                            color: Colors.grey,
-                          ),
-                          image: DecorationImage(
-                            fit: BoxFit.cover,
-                            image: AssetImage(
-                              "images/logo.png",
+                            borderRadius: BorderRadius.circular(10),
+                            border: Border.all(
+                              width: 3,
+                              color: Colors.grey,
                             ),
-                          ),
-                        ),
+                            image: DecorationImage(
+                              fit: BoxFit.cover,
+                              image: AssetImage(
+                                imagePaths[Random().nextInt(imagePaths.length)],
+                              ),
+                            )),
                       ),
                       const SizedBox(width: 10),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "Google Pay",
+                            selectedBillOption,
                             style: TextStyle(
                               fontSize: 16,
                               color: Colors.teal,
@@ -129,7 +150,7 @@ class InformacjePage extends StatelessWidget {
                           ),
                           const SizedBox(height: 8),
                           Text(
-                            "ID:192567856",
+                            "ID: ${Random().nextInt(100000000)}",
                             style: TextStyle(
                               fontSize: 16,
                               color: Colors.grey,
@@ -141,12 +162,42 @@ class InformacjePage extends StatelessWidget {
                     ],
                   ),
                   SizedText(
-                      text: "Automatyczna płatność dnia 25.11.2022",
+                      text:
+                      "Automatyczna płatność dnia ${DateTime.now().toString().substring(0, 16)}",
                       color: Colors.black),
                   const SizedBox(height: 5)
                 ],
               ),
             ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _headSection() {
+    return Container(
+      height: 310,
+      color: Colors.teal,
+      child: Stack(
+        children: [
+          _mainBackground(),
+          _buttonContainer(),
+          _buttonDelete(),
+        ],
+      ),
+    );
+  }
+
+  Widget _mainBackground() {
+    return Positioned(
+      child: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            fit: BoxFit.cover,
+            image: AssetImage(
+              "images/b.png",
+            ),
           ),
         ),
       ),
