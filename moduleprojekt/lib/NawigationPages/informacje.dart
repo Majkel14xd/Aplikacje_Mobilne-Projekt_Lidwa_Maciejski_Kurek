@@ -84,7 +84,7 @@ class _InformacjePageState extends State<InformacjePage> {
       'Blik'
     ];
     final selectedBillOption =
-        billOptions[Random().nextInt(billOptions.length)];
+    billOptions[Random().nextInt(billOptions.length)];
     List<String> imagePaths = [
       "images/logo.png",
       "images/logo1.png",
@@ -163,11 +163,7 @@ class _InformacjePageState extends State<InformacjePage> {
                   ),
                   SizedText(
                       text:
-<<<<<<<<< Temporary merge branch 1
-                          "Automatyczna płatność dnia ${DateTime.now().toString().substring(0, 16)}",
-=========
                       "Automatyczna płatność dnia ${DateTime.now().toString().substring(0, 16)}",
->>>>>>>>> Temporary merge branch 2
                       color: Colors.black),
                   const SizedBox(height: 5)
                 ],
