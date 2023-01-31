@@ -211,7 +211,7 @@ class _ProfilePageState extends State<ProfilePage> {
         children: [
           const SizedBox(height: 24),
           ProfileWidget(
-            imagePath: user.currentUser!.photoURL.toString(),
+            imagePath: 'https://i.wpimg.pl/400x0/i.wp.pl/a/f/jpeg/34841/twarze_dwa.jpeg',
             onClicked: () {
               Navigator.of(context).push(
                 MaterialPageRoute(builder: (context) => EditProfilePage()),
@@ -319,15 +319,16 @@ class EditProfilePage extends StatefulWidget {
 
 class _EditProfilePageState extends State<EditProfilePage> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  String _name = '';
-  String opis = '';
+  String? _name ;
+  String? newabout;
+  String?  opis;
   @override
   Future dodajopis(String opis) async {
     try {
       return await FirebaseFirestore.instance
-          .collection("user")
-          .doc(_auth.currentUser!.displayName.toString())
-          .update({"about": opis});
+          .collection('user')
+          .doc(_auth.currentUser!.uid.toString())
+          .update({'about': opis});
     } catch (e) {
       print(e.toString());
       return null;
@@ -342,40 +343,39 @@ class _EditProfilePageState extends State<EditProfilePage> {
           children: [
             const SizedBox(height: 24),
             ProfileWidget(
-              imagePath: _auth.currentUser!.photoURL.toString(),
+              imagePath: 'https://i.wpimg.pl/400x0/i.wp.pl/a/f/jpeg/34841/twarze_dwa.jpeg',
               isEdit: true,
               onClicked: () async {},
             ),
             const SizedBox(height: 24),
-            TextFieldWidget(
-              label: 'Nazwa uzytkownika',
-              text: _auth.currentUser!.displayName.toString(),
+            TextField(
+              decoration: InputDecoration(
+                labelText: 'Zmien nazwe uzytkownika',
+              ),
               onChanged: (name) {
                 setState(() {
                   _name = name;
+
                 });
               },
             ),
             const SizedBox(height: 24),
-            TextFieldWidget(
-              label: 'Email',
-              text: "",
-              onChanged: (email) {},
-            ),
-            const SizedBox(height: 24),
-            TextFieldWidget(
-              label: 'Aktualne zniżki',
-              text: '',
-              maxLines: 5,
+            TextFormField(
+              decoration: InputDecoration(
+                labelText: 'Aktualne zniżki',
+              ),
               onChanged: (about) {
-                opis = about;
+                setState(() {
+                  opis = about;
+                });
               },
             ),
             const SizedBox(height: 24),
             ElevatedButton(
-                onPressed: () async {
-                  _auth.currentUser!.updateDisplayName(_name);
-                  dodajopis(opis);
+                onPressed: () {
+                  _auth.currentUser?.updateDisplayName(_name!);
+                  dodajopis(opis!);
+                  setState(() {});
                 },
                 child: Text('Aktualizuj')),
             const SizedBox(height: 24),

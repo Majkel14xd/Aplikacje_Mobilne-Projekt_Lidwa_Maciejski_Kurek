@@ -76,6 +76,7 @@ class Przyciski extends StatelessWidget {
     Sortuj(),
   ];
   @override
+
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
