@@ -122,7 +122,7 @@ class _ProfilPageState extends State<ProfilPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'About',
+                  'O znizkach',
                   style: TextStyle(fontSize: 28),
                 ),
                 const SizedBox(height: 16),

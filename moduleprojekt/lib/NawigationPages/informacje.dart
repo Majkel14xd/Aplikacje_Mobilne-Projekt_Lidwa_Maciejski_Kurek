@@ -232,4 +232,3 @@ class SizedText extends StatelessWidget {
       ),
     );
   }
-}
