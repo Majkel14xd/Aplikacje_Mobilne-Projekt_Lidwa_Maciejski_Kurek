@@ -163,7 +163,11 @@ class _InformacjePageState extends State<InformacjePage> {
                   ),
                   SizedText(
                       text:
+<<<<<<<<< Temporary merge branch 1
                           "Automatyczna płatność dnia ${DateTime.now().toString().substring(0, 16)}",
+=========
+                      "Automatyczna płatność dnia ${DateTime.now().toString().substring(0, 16)}",
+>>>>>>>>> Temporary merge branch 2
                       color: Colors.black),
                   const SizedBox(height: 5)
                 ],
@@ -232,3 +236,4 @@ class SizedText extends StatelessWidget {
       ),
     );
   }
+}
